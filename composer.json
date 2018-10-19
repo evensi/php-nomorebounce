@@ -1,0 +1,22 @@
+{
+    "name": "brickheadz/php-nomorebounce",
+    "description": "Library to handle NoMoreBounce APIs",
+    "keywords": ["php"],
+    "homepage": "https://github.com/brickheadz/php-nomorebounce",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Rossano Baldi",
+            "email": "rossano.baldi.info@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
