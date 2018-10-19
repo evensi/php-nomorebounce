@@ -16,9 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "brickheadz\\NoMoreBounce\\": "src/",
-            "brickheadz\\NoMoreBounce\\Config\\": "src/Config/",
-            "brickheadz\\NoMoreBounce\\Exception\\": "src/Exception/"
+            "brickheadz\\NoMoreBounce\\": "src/"
         }
     }
 }
