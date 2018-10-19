@@ -1,9 +1,7 @@
 <?php
-namespace Config;
+namespace brickheadz\NoMoreBounce\Config;
 
-require_once __DIR__ . '/../Exception/CredentialException.php';
-
-use \Exception\CredentialException;
+use brickheadz\NoMoreBounce\Exception\CredentialException;
 
 /**
  * Class to handle authentication settings

@@ -1,8 +1,8 @@
 <?php
-namespace silvergit\NoMoreBounce;
+namespace brickheadz\NoMoreBounce;
 
-use Exception\ResponseException;
-use Config\EmailStatus;
+use brickheadz\Exception\ResponseException;
+use brickheadz\Config\EmailStatus;
 
 /**
  * This class will include all methods to validate 
@@ -86,7 +86,7 @@ class Response
         $decoded = static::validateAndDecodeResponse($json);
         return (empty($decoded->stats) ? [] : $decoded->stats);
     }
-    
+
     /**
      * Validate and parse importer/add response
      * 
@@ -94,8 +94,9 @@ class Response
      * @return mixed
      * @throws ResponseException
      */
-    public static function createListWithEmailsRequest($json){
-        $decoded = static::validateAndDecodeResponse($json);        
+    public static function createListWithEmailsRequest($json)
+    {
+        $decoded = static::validateAndDecodeResponse($json);
         return $decoded;
     }
 

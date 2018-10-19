@@ -1,5 +1,5 @@
 <?php
-namespace Config;
+namespace brickheadz\NoMoreBounce\Config;
 
 class EmailStatus
 {

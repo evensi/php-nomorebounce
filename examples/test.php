@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use silvergit\NoMoreBounce\NoMoreBounce;
+use brickheadz\NoMoreBounce\NoMoreBounce;
 
 // Set credential path
 $credential_path = __DIR__ . '/credentials.json';

@@ -1,7 +1,5 @@
 <?php
-namespace Exception;
-
-require_once __DIR__ . '/ParamException.php';
+namespace brickheadz\NoMoreBounce\Exception;
 
 class CredentialException extends ParamException
 {

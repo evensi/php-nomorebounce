@@ -1,7 +1,7 @@
 <?php
-namespace silvergit\NoMoreBounce;
+namespace brickheadz\NoMoreBounce;
 
-use Exception\ResponseException;
+use brickheadz\Exception\ResponseException;
 
 class Request
 {

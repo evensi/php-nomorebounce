@@ -1,20 +1,12 @@
 <?php
-namespace silvergit\NoMoreBounce;
+namespace brickheadz\NoMoreBounce;
 
-require_once __DIR__ . '/Exception/ParamException.php';
-require_once __DIR__ . '/Exception/ResponseException.php';
-require_once __DIR__ . '/Config/Credentials.php';
-require_once __DIR__ . '/Config/Endpoint.php';
-require_once __DIR__ . '/Config/Url.php';
-require_once __DIR__ . '/Response.php';
-require_once __DIR__ . '/Request.php';
-
-use Config\Credentials;
-use Config\Url;
-use Config\Endpoint;
-use Exception\ParamException;
-use Exception\ResponseException;
-use Exception\CredentialException;
+use brickheadz\NoMoreBounce\Config\Credentials;
+use brickheadz\NoMoreBounce\Config\Url;
+use brickheadz\NoMoreBounce\Config\Endpoint;
+use brickheadz\NoMoreBounce\Exception\ParamException;
+use brickheadz\NoMoreBounce\Exception\ResponseException;
+use brickheadz\NoMoreBounce\Exception\CredentialException;
 
 class NoMoreBounce
 {
@@ -55,12 +47,8 @@ class NoMoreBounce
             }
 
             $response = Request::prepareAndLaunchPostRequest(
-                Url::API_URL_V1, 
-                Endpoint::POST_EMAIL_CHECK, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-                );
+                    Url::API_URL_V1, Endpoint::POST_EMAIL_CHECK, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+            );
 
             return Response::parseEmailCheckResponse($response);
         }
@@ -80,11 +68,8 @@ class NoMoreBounce
     {
         throw new \Exception('Broken api');
         $response = Request::prepareAndLaunchGetRequest(
-            Url::API_URL_V1, 
-            Endpoint::GET_AVAILABLE_CREDITS, 
-            $this->credentials->getConnectorId(), 
-            $this->credentials->getRequestToken()
-            );
+                Url::API_URL_V1, Endpoint::GET_AVAILABLE_CREDITS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken()
+        );
 
         return Response::parseAvailableCreditsResponse($response);
     }
@@ -108,11 +93,8 @@ class NoMoreBounce
     public function getAllLists()
     {
         $response = Request::prepareAndLaunchGetRequest(
-            Url::API_URL_V1, 
-            Endpoint::GET_LISTS, 
-            $this->credentials->getConnectorId(), 
-            $this->credentials->getRequestToken()
-            );
+                Url::API_URL_V1, Endpoint::GET_LISTS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken()
+        );
 
         return Response::parseGetAllListsResponse($response);
     }
@@ -139,12 +121,8 @@ class NoMoreBounce
         } else {
             $params = ['list_id' => $listId];
             $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, 
-                Endpoint::GET_EMAILS_INTO_LIST, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-                );
+                    Url::API_URL_V1, Endpoint::GET_EMAILS_INTO_LIST, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+            );
 
             return Response::parseAllEmailsIntoListRequest($response);
         }
@@ -179,11 +157,8 @@ class NoMoreBounce
         } else {
             $params = ['list_id' => $listId, 'page' => $page];
             $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, Endpoint::GET_LIST_STAT, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-                );
+                    Url::API_URL_V1, Endpoint::GET_LIST_STAT, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+            );
 
             return Response::parseAListStatisticsRequest($response);
         }
@@ -215,12 +190,8 @@ class NoMoreBounce
             $params['recipients'] = json_encode($recipients);
 
             $response = Request::prepareAndLaunchPostRequest(
-                Url::API_URL_V1, 
-                Endpoint::POST_CREATE_LIST_WITH_EMAILS, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-                );
+                    Url::API_URL_V1, Endpoint::POST_CREATE_LIST_WITH_EMAILS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+            );
 
             return Response::createListWithEmailsRequest($response);
         }

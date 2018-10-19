@@ -1,11 +1,11 @@
 <?php
-
-namespace Config;
+namespace brickheadz\NoMoreBounce\Config;
 
 /**
  * Class to group all endpoint
  */
-class Endpoint {
+class Endpoint
+{
 
     /** @var string Check email */
     const POST_EMAIL_CHECK = 'check/';

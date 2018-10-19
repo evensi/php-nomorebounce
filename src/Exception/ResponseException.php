@@ -1,5 +1,5 @@
 <?php
-namespace Exception;
+namespace brickheadz\NoMoreBounce\Exception;
 
 use \Exception;
 
