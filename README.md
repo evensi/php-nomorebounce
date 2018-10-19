@@ -69,5 +69,5 @@ Etc.
 Known issues
 -----------
 
-- APIs account/credits is broken at the moment, the relative function is forced to thrown an exception.
-- APIs check/ is a POST request not a GET one, the relative function will already use the right method.
+- API account/credits is broken at the moment, the relative function is forced to thrown an exception.
+- API check/ is a POST request not a GET one, the relative function will already use the right method.
