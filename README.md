@@ -1,5 +1,7 @@
 Wrapper NoMoreBounce API
 ================
+[![Latest Stable Version](https://poser.pugx.org/brickheadz/php-nomorebounce/v/stable)](https://packagist.org/packages/brickheadz/php-nomorebounce)
+[![License](https://poser.pugx.org/brickheadz/php-nomorebounce/license)](https://packagist.org/packages/brickheadz/php-nomorebounce)
 
 A simple interface to NoMoreBounce APIs.
 
@@ -69,5 +71,6 @@ Etc.
 Known issues
 -----------
 
-- API account/credits is broken at the moment, the relative function is forced to thrown an exception.
+- API account/credits is broken at the moment, if you call the relative function an Exception will thrown due to invalid response.
 - API check/ is a POST request not a GET one, the relative function will already use the right method.
+

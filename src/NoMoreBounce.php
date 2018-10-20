@@ -47,7 +47,11 @@ class NoMoreBounce
             }
 
             $response = Request::prepareAndLaunchPostRequest(
-                    Url::API_URL_V1, Endpoint::POST_EMAIL_CHECK, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+                Url::API_URL_V1, 
+                Endpoint::POST_EMAIL_CHECK, 
+                $this->credentials->getConnectorId(), 
+                $this->credentials->getRequestToken(), 
+                $params
             );
 
             return Response::parseEmailCheckResponse($response);
@@ -66,9 +70,10 @@ class NoMoreBounce
      */
     public function getAvailableCredits()
     {
-        throw new \Exception('Broken api');
         $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, Endpoint::GET_AVAILABLE_CREDITS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken()
+            Url::API_URL_V1, Endpoint::GET_AVAILABLE_CREDITS, 
+            $this->credentials->getConnectorId(), 
+            $this->credentials->getRequestToken()
         );
 
         return Response::parseAvailableCreditsResponse($response);
@@ -93,7 +98,9 @@ class NoMoreBounce
     public function getAllLists()
     {
         $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, Endpoint::GET_LISTS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken()
+            Url::API_URL_V1, Endpoint::GET_LISTS, 
+            $this->credentials->getConnectorId(), 
+            $this->credentials->getRequestToken()
         );
 
         return Response::parseGetAllListsResponse($response);
@@ -121,7 +128,11 @@ class NoMoreBounce
         } else {
             $params = ['list_id' => $listId];
             $response = Request::prepareAndLaunchGetRequest(
-                    Url::API_URL_V1, Endpoint::GET_EMAILS_INTO_LIST, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+                Url::API_URL_V1, 
+                Endpoint::GET_EMAILS_INTO_LIST, 
+                $this->credentials->getConnectorId(), 
+                $this->credentials->getRequestToken(), 
+                $params
             );
 
             return Response::parseAllEmailsIntoListRequest($response);
@@ -157,7 +168,11 @@ class NoMoreBounce
         } else {
             $params = ['list_id' => $listId, 'page' => $page];
             $response = Request::prepareAndLaunchGetRequest(
-                    Url::API_URL_V1, Endpoint::GET_LIST_STAT, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+                Url::API_URL_V1, 
+                Endpoint::GET_LIST_STAT, 
+                $this->credentials->getConnectorId(), 
+                $this->credentials->getRequestToken(), 
+                $params
             );
 
             return Response::parseAListStatisticsRequest($response);
@@ -190,7 +205,11 @@ class NoMoreBounce
             $params['recipients'] = json_encode($recipients);
 
             $response = Request::prepareAndLaunchPostRequest(
-                    Url::API_URL_V1, Endpoint::POST_CREATE_LIST_WITH_EMAILS, $this->credentials->getConnectorId(), $this->credentials->getRequestToken(), $params
+                Url::API_URL_V1, 
+                Endpoint::POST_CREATE_LIST_WITH_EMAILS, 
+                $this->credentials->getConnectorId(), 
+                $this->credentials->getRequestToken(), 
+                $params
             );
 
             return Response::createListWithEmailsRequest($response);
