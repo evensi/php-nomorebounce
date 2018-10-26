@@ -15,7 +15,7 @@ class NoMoreBounce
 
     /**
      * Constructor.
-     * 
+     *
      * @param string $credential_path
      * @throws CredentialException
      */
@@ -29,9 +29,9 @@ class NoMoreBounce
 
     /**
      * Check if a mail is secure or not.
-     * 
+     *
      * @param string $email     Email to check
-     * @param bool $force_check If true erases the result (if checked in the past) and makes another check 
+     * @param bool $force_check If true erases the result (if checked in the past) and makes another check
      * @return bool             TRUE if secure, FALSE otherwise
      * @throws ParamException
      * @throws ResponseException
@@ -40,22 +40,19 @@ class NoMoreBounce
     {
         if (empty(trim($email))) {
             throw new ParamException('Empty email provided');
-        } else {
-            $params = ['email' => $email];
-            if ($force_check) {
-                $params['force_check'] = TRUE;
-            }
-
-            $response = Request::prepareAndLaunchPostRequest(
-                Url::API_URL_V1, 
-                Endpoint::POST_EMAIL_CHECK, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-            );
-
-            return Response::parseEmailCheckResponse($response);
         }
+
+        $response = Request::executePostRequest(
+            Request::preparePostRequest(
+                Url::API_URL_V1,
+                Endpoint::POST_EMAIL_CHECK,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken(),
+                ['email' => $email, 'force_check' => $force_check]
+            )
+        );
+
+        return Response::parseEmailCheckResponse($response);
     }
     ############################################################################
     #   ACCOUNT
@@ -64,16 +61,18 @@ class NoMoreBounce
     /**
      * @todo Check if the connect API is fixed
      * Return remaining credits (free credits and payed credits).
-     * 
+     *
      * @return int
      * @throws ResponseException
      */
     public function getAvailableCredits()
     {
-        $response = Request::prepareAndLaunchGetRequest(
-            Url::API_URL_V1, Endpoint::GET_AVAILABLE_CREDITS, 
-            $this->credentials->getConnectorId(), 
-            $this->credentials->getRequestToken()
+        $response = Request::executeGetRequest(
+            Request::prepareGetRequest(
+                Url::API_URL_V1, Endpoint::GET_AVAILABLE_CREDITS,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken()
+            )
         );
 
         return Response::parseAvailableCreditsResponse($response);
@@ -84,7 +83,7 @@ class NoMoreBounce
 
     /**
      * Return all imported lists
-     * 
+     *
      * @return [mixed]   List of lists like:   [
      *                                              {
      *                                                "code": "General user list",
@@ -97,10 +96,12 @@ class NoMoreBounce
      */
     public function getAllLists()
     {
-        $response = Request::prepareAndLaunchGetRequest(
-            Url::API_URL_V1, Endpoint::GET_LISTS, 
-            $this->credentials->getConnectorId(), 
-            $this->credentials->getRequestToken()
+        $response = Request::executeGetRequest(
+            Request::prepareGetRequest(
+                Url::API_URL_V1, Endpoint::GET_LISTS,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken()
+            )
         );
 
         return Response::parseGetAllListsResponse($response);
@@ -108,7 +109,7 @@ class NoMoreBounce
 
     /**
      * Return all emails (and information) into specific list
-     * 
+     *
      * @param int $listId
      * @return [mixed]  List of emails like: {
      *                                          "status": 200,
@@ -125,23 +126,24 @@ class NoMoreBounce
     {
         if (!is_int($listId)) {
             throw new ParamException('Invalid list id provided');
-        } else {
-            $params = ['list_id' => $listId];
-            $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, 
-                Endpoint::GET_EMAILS_INTO_LIST, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-            );
-
-            return Response::parseAllEmailsIntoListRequest($response);
         }
+
+        $response = Request::executeGetRequest(
+            Request::prepareGetRequest(
+                Url::API_URL_V1,
+                Endpoint::GET_EMAILS_INTO_LIST,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken(),
+                ['list_id' => $listId]
+            )
+        );
+
+        return Response::parseAllEmailsIntoListRequest($response);
     }
 
     /**
      * Return all statistics about specific list
-     * 
+     *
      * @param int $listId
      * @param int $page Page used to paginate results
      * @return [mixed]  List of statistics like: [
@@ -163,25 +165,27 @@ class NoMoreBounce
     {
         if (!is_int($listId)) {
             throw new ParamException('Invalid list id provided');
-        } elseif (!is_int($page)) {
-            throw new ParamException('Invalid pagination value provided');
-        } else {
-            $params = ['list_id' => $listId, 'page' => $page];
-            $response = Request::prepareAndLaunchGetRequest(
-                Url::API_URL_V1, 
-                Endpoint::GET_LIST_STAT, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-            );
-
-            return Response::parseAListStatisticsRequest($response);
         }
+        if (!is_int($page)) {
+            throw new ParamException('Invalid pagination value provided');
+        }
+
+        $response = Request::executeGetRequest(
+            Request::prepareGetRequest(
+                Url::API_URL_V1,
+                Endpoint::GET_LIST_STAT,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken(),
+                ['list_id' => $listId, 'page' => $page]
+            )
+        );
+
+        return Response::parseAListStatisticsRequest($response);
     }
 
     /**
      * Create a new list that contains x emails
-     * 
+     *
      * @param int $listId       List where store emails
      * @param array $emails     List of emails MAX 1000
      * @return mixed            Results about creation like: {
@@ -196,23 +200,25 @@ class NoMoreBounce
     {
         if (empty($emails)) {
             throw new ParamException('At least one email must be provided');
-        } elseif (count($emails) > 1000) {
-            throw new ParamException('Too mutch emails, max allowed is 1000');
-        } else {
-            $params = [];
-            $recipients = new \stdClass();
-            $recipients->recipients = $emails;
-            $params['recipients'] = json_encode($recipients);
-
-            $response = Request::prepareAndLaunchPostRequest(
-                Url::API_URL_V1, 
-                Endpoint::POST_CREATE_LIST_WITH_EMAILS, 
-                $this->credentials->getConnectorId(), 
-                $this->credentials->getRequestToken(), 
-                $params
-            );
-
-            return Response::createListWithEmailsRequest($response);
         }
+        if (count($emails) > 1000) {
+            throw new ParamException('Too many emails, max allowed is 1000');
+        }
+
+        $recipients = new \stdClass();
+        $recipients->recipients = $emails;
+        $params = ['recipients' => json_encode($recipients)];
+
+        $response = Request::executePostRequest(
+            Request::preparePostRequest(
+                Url::API_URL_V1,
+                Endpoint::POST_CREATE_LIST_WITH_EMAILS,
+                $this->credentials->getConnectorId(),
+                $this->credentials->getRequestToken(),
+                $params
+            )
+        );
+
+        return Response::createListWithEmailsRequest($response);
     }
 }

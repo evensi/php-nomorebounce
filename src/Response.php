@@ -5,8 +5,8 @@ use brickheadz\Exception\ResponseException;
 use brickheadz\Config\EmailStatus;
 
 /**
- * This class will include all methods to validate 
- * (and eventually extract some parts) different response 
+ * This class will include all methods to validate
+ * (and eventually extract some parts) different response
  * from NoMoreBounce APIs
  */
 class Response
@@ -14,7 +14,7 @@ class Response
 
     /**
      * Validate and parse check response
-     * 
+     *
      * @param string $json
      * @return boolean
      * @throws ResponseException
@@ -37,7 +37,7 @@ class Response
 
     /**
      * Validate and parse account/credits response
-     * 
+     *
      * @param string $json
      * @return int
      * @throws ResponseException
@@ -49,8 +49,8 @@ class Response
     }
 
     /**
-     * Validate and parse importer/lists response 
-     * 
+     * Validate and parse importer/lists response
+     *
      * @param string $json
      * @return mixed
      * @throws ResponseException
@@ -63,7 +63,7 @@ class Response
 
     /**
      * Validate and parse importer/emails-list response
-     * 
+     *
      * @param string $json
      * @return mixed
      * @throws ResponseException
@@ -76,7 +76,7 @@ class Response
 
     /**
      * Validate and parse importer/stats response
-     * 
+     *
      * @param string $json
      * @return mixed
      * @throws ResponseException
@@ -89,7 +89,7 @@ class Response
 
     /**
      * Validate and parse importer/add response
-     * 
+     *
      * @param string $json
      * @return mixed
      * @throws ResponseException
@@ -102,7 +102,7 @@ class Response
 
     /**
      * Decode and check response
-     * 
+     *
      * @param string $json
      * @return mixed
      * @throws ResponseException
@@ -112,10 +112,11 @@ class Response
         $decoded = json_decode($json);
         if (!$decoded) {
             throw new ResponseException('Unable to decode response', 1, $json);
-        } elseif ($decoded->status !== 200 && $decoded !== 400) {
-            throw new ResponseException('Error during request: ' . $decoded->msg, 2, $json);
-        } else {
-            return $decoded;
         }
+        if ($decoded->status !== 200 && $decoded !== 400) {
+            throw new ResponseException('Error during request: ' . $decoded->msg, 2, $json);
+        }
+
+        return $decoded;
     }
 }

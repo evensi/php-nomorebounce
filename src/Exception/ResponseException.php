@@ -20,10 +20,10 @@ class ResponseException extends Exception
      * @throws \Throwable
      */
     public function __construct(
-    $message = NULL, $code = 0, $request = NULL, $response = NULL, Exception $previus = NULL)
+    $message = NULL, $code = 0, $request = NULL, $response = NULL, Exception $previous = NULL)
     {
 
-        parent::__construct($message, $code, $previus);
+        parent::__construct($message, $code, $previous);
 
         $this->request = $request;
         $this->response = $response;
