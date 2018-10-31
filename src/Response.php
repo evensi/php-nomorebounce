@@ -1,8 +1,8 @@
 <?php
 namespace brickheadz\NoMoreBounce;
 
-use brickheadz\Exception\ResponseException;
-use brickheadz\Config\EmailStatus;
+use brickheadz\NoMoreBounce\Exception\ResponseException;
+use brickheadz\NoMoreBounce\Config\EmailStatus;
 
 /**
  * This class will include all methods to validate

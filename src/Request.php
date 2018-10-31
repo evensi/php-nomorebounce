@@ -1,7 +1,7 @@
 <?php
 namespace brickheadz\NoMoreBounce;
 
-use brickheadz\Exception\ResponseException;
+use brickheadz\NoMoreBounce\Exception\ResponseException;
 
 class Request
 {
