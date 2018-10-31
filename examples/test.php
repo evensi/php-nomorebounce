@@ -12,3 +12,5 @@ $email = 'testsomeemail@gmail.com';
 
 // Launch some request
 $response = $NoMoreBounce->checkEmail($email, FALSE);
+
+var_dump($response);

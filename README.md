@@ -74,3 +74,14 @@ Known issues
 - API account/credits is broken at the moment, if you call the relative function an Exception will thrown due to invalid response.
 - API check/ is a POST request not a GET one, the relative function will already use the right method.
 
+Contribute
+-----------
+
+We welcome any contribution to this library. Feel free to clone this repository, make the desired code changes, test locally (you need a token and connector_id)
+
+```bash
+$ composer dump-autoload
+$ php  examples/test.php
+```
+
+and send a Pull Request.
